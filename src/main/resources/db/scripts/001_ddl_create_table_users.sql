@@ -1,8 +1,8 @@
-CREATE TABLE users
-(
-    id         serial PRIMARY KEY,
-    username   text NOT NULL UNIQUE,
-    email      text NOT NULL UNIQUE,
-    password   text NOT NULL,
-    created_at TIMESTAMP
+CREATE table if not exists users(
+id serial primary key,
+username text not null UNIQUE,
+email text not null UNIQUE,
+password text not null,
+created_at TIMESTAMP
+
 )
