@@ -1,4 +1,4 @@
-CREATE TABLE if not exists posts
+CREATE TABLE if not exists subscriptions
 (
     id               serial PRIMARY KEY,
     subscriber_id    INT REFERENCES users (id) ON DELETE CASCADE,
