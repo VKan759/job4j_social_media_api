@@ -12,6 +12,7 @@ public class SocialMediaApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SocialMediaApiApplication.class, args);
+
 	}
 
 }
