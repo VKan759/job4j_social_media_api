@@ -1,7 +1,6 @@
 package ru.job4j.socialmedia.service.impl;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import ru.job4j.socialmedia.model.Post;
@@ -42,9 +41,6 @@ public class Service {
 
     @Transactional
     public void initUsers() {
-        // Получаем все посты из базы данных для связки
-
-
         for (int i = 1; i <= 10; i++) {
             User user = new User();
             user.setUsername("user-" + i);
@@ -59,8 +55,9 @@ public class Service {
     public void setPosts() {
         List<Post> posts = (List<Post>) postRepository.findAll();
         List<User> users = (List<User>) userRepository.findAll();
-        for (int i = 0; i < ; i++) {
-            
+        for (int i = 0; i < users.size(); i++) {
+            users.get(i).setPosts(List.of(posts.get(i)));
         }
+        userRepository.saveAll(users);
     }
 }
