@@ -12,7 +12,6 @@ import ru.job4j.socialmedia.model.User;
 import java.util.List;
 import java.util.Optional;
 
-
 @SpringBootTest
 @ActiveProfiles("test")
 class UserRepositoryTest {
