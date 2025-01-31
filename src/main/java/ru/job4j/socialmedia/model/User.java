@@ -23,7 +23,7 @@ public class User {
     @JsonProperty(value = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "j_user_id")
     private List<Post> posts = new ArrayList<>();
 

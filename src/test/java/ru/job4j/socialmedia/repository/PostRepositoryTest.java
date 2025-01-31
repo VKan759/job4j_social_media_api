@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import ru.job4j.socialmedia.model.Post;
 
@@ -26,7 +25,7 @@ class PostRepositoryTest {
     }
 
     @Test
-    void whenAddPost_thenFindPostId() {
+    void whenAddPostThenFindPostId() {
         Post post = new Post().setHeader("First header").setDescription("Description").setCreatedAt(LocalDateTime.now());
         postRepository.save(post);
         Optional<Post> byId = postRepository.findById(post.getId());
@@ -35,7 +34,7 @@ class PostRepositoryTest {
     }
 
     @Test
-    void whenFindAll_ThenReturnAllPosts() {
+    void whenFindAllThenReturnAllPosts() {
         Post first = new Post().setHeader("First header").setDescription("Description");
         Post second = new Post().setHeader("second header").setDescription("Second description");
         Post third = new Post().setHeader("third header").setDescription("Third description");
