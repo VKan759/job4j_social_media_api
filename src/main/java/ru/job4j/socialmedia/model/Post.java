@@ -6,9 +6,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @Entity
@@ -26,4 +24,9 @@ public class Post {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonProperty(value = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "j_user_id", nullable = false)
+    private User user;
+
 }
