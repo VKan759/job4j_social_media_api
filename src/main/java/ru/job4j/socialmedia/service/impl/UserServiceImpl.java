@@ -1,5 +1,6 @@
 package ru.job4j.socialmedia.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.socialmedia.model.User;
@@ -9,6 +10,7 @@ import ru.job4j.socialmedia.service.UserService;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
