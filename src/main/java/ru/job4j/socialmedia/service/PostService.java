@@ -1,7 +1,14 @@
 package ru.job4j.socialmedia.service;
 
 import ru.job4j.socialmedia.model.Post;
+import ru.job4j.socialmedia.model.PostDto;
+
+import java.util.Optional;
 
 public interface PostService {
-    Post save(Post post);
+    Optional<Post> save(PostDto post);
+
+    int update(PostDto post);
+
+    int delete(int id);
 }

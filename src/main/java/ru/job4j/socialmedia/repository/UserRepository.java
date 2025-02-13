@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
                                    WHERE u.id = :fId
             """, nativeQuery = true)
     List<User> findSubscribersById(@Param("fId") int id);
+
+    List<User> findByIdIn(List<Integer> ids);
 }
