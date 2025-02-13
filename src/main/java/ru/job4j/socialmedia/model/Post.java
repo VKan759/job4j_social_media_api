@@ -29,4 +29,11 @@ public class Post {
     @JoinColumn(name = "j_user_id", nullable = false)
     private User user;
 
+    public static Post fromDto(PostDto postDto) {
+        return new Post()
+                .setId(postDto.getId())
+                .setDescription(postDto.getDescription())
+                .setCreatedAt(postDto.getCreatedAt())
+                .setAttachmentFile(postDto.getAttachmentFile());
+    }
 }

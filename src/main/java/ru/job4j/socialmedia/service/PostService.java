@@ -11,4 +11,6 @@ public interface PostService {
     int update(PostDto post);
 
     int delete(int id);
+
+    Optional<Post> findById(int id);
 }

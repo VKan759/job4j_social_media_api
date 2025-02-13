@@ -12,6 +12,7 @@ import ru.job4j.socialmedia.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 public interface PostRepository extends JpaRepository<Post, Integer> {
@@ -47,4 +48,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
                                     WHERE s.subscriber_id = :fId)
             """, nativeQuery = true)
     List<Post> findSubscribersPostsByUserId(int id);
+
+    Optional<Post> findById(int id);
 }

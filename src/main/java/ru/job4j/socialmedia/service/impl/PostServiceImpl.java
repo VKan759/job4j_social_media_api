@@ -36,11 +36,16 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public int update(PostDto post) {
-       return postRepository.updatePost(post.getId(), post.getHeader(), post.getDescription());
+        return postRepository.updatePost(post.getId(), post.getHeader(), post.getDescription());
     }
 
     @Override
     public int delete(int id) {
         return postRepository.deletePost(id);
+    }
+
+    @Override
+    public Optional<Post> findById(int id) {
+        return postRepository.findById(id);
     }
 }
