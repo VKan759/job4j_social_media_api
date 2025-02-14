@@ -1,5 +1,6 @@
 package ru.job4j.socialmedia.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -27,11 +28,13 @@ public class Post {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "j_user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     public static Post fromDto(PostDto postDto) {
         return new Post()
                 .setId(postDto.getId())
+                .setHeader(postDto.getHeader())
                 .setDescription(postDto.getDescription())
                 .setCreatedAt(postDto.getCreatedAt())
                 .setAttachmentFile(postDto.getAttachmentFile());

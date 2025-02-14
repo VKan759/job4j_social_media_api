@@ -30,6 +30,7 @@ public class PostServiceImpl implements PostService {
                     .setUser(userById.get())
                     .setAttachmentFile(post.getAttachmentFile())
             );
+            postRepository.save(postToSave.get());
         }
         return postToSave;
     }
