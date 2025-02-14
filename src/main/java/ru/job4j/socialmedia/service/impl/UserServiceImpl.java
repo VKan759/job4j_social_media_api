@@ -1,5 +1,6 @@
 package ru.job4j.socialmedia.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
+        boolean existsById = userRepository.existsById(user.getId());
+        if (existsById) {
+            throw new IllegalArgumentException("User already exists!");
+        }
         return userRepository.save(user);
     }
 
     @Override
     public User update(User user) {
+        boolean existsById = userRepository.existsById(user.getId());
+        if (!existsById) {
+            throw new EntityNotFoundException("User does not exist!");
+        }
         return userRepository.save(user);
     }
 

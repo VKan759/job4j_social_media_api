@@ -17,8 +17,12 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable int id) {
-        Optional<User> byId = userService.findById(id);
-        return ResponseEntity.ok(byId.orElse(null));
+        ResponseEntity<User> response = ResponseEntity.notFound().build();
+        Optional<User> userOpt = userService.findById(id);
+        if (userOpt.isPresent()) {
+            response = ResponseEntity.ok(userOpt.get());
+        }
+        return response;
     }
 
     @PostMapping

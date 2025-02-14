@@ -26,19 +26,25 @@ public class PostController {
 
     @PutMapping
     public ResponseEntity<Post> update(@RequestBody PostDto post) {
+        ResponseEntity<Post> response = ResponseEntity.notFound().build();
         int update = postService.update(post);
-        Optional<User> byId = userService.findById(post.getUserId());
-        Post postFromDto = null;
+        Optional<User> userOpt = userService.findById(post.getUserId());
         if (update > 0) {
-            postFromDto = Post.fromDto(post);
-            postFromDto.setUser(byId.orElse(null));
+            Post postFromDto = Post.fromDto(post);
+            postFromDto.setUser(userOpt.orElse(null));
+            response = ResponseEntity.ok(postFromDto);
         }
-        return ResponseEntity.ok(postFromDto);
+        return response;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Post> get(@PathVariable int id) {
-        return ResponseEntity.ok(postService.findById(id).orElse(null));
+        ResponseEntity<Post> response = ResponseEntity.notFound().build();
+        Optional<Post> postOpt = postService.findById(id);
+        if (postOpt.isPresent()) {
+            response = ResponseEntity.ok(postOpt.get());
+        }
+        return response;
     }
 
     @DeleteMapping("/{id}")
