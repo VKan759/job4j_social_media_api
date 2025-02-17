@@ -21,9 +21,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String username;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
+
     @JsonProperty(value = "created_at")
     private LocalDateTime createdAt;
 
