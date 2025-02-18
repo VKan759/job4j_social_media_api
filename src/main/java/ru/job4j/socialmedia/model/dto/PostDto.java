@@ -1,4 +1,4 @@
-package ru.job4j.socialmedia.model;
+package ru.job4j.socialmedia.model.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

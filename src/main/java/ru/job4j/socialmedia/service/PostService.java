@@ -1,8 +1,9 @@
 package ru.job4j.socialmedia.service;
 
 import ru.job4j.socialmedia.model.Post;
-import ru.job4j.socialmedia.model.PostDto;
+import ru.job4j.socialmedia.model.dto.PostDto;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface PostService {
@@ -13,4 +14,6 @@ public interface PostService {
     int delete(int id);
 
     Optional<Post> findById(int id);
+
+    List<PostDto> findAllByUserIds(List<Integer> userIds);
 }

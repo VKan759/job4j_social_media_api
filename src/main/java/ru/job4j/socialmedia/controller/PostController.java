@@ -5,11 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.socialmedia.model.Post;
-import ru.job4j.socialmedia.model.PostDto;
+import ru.job4j.socialmedia.model.dto.PostDto;
 import ru.job4j.socialmedia.model.User;
 import ru.job4j.socialmedia.service.PostService;
 import ru.job4j.socialmedia.service.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -51,5 +52,10 @@ public class PostController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         postService.delete(id);
+    }
+
+    @GetMapping("/posts")
+    public List<PostDto> getPostsByUserIds(@RequestParam List<Integer> userIds) {
+        return postService.findAllByUserIds(userIds);
     }
 }

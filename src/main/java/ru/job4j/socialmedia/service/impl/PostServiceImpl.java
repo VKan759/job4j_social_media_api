@@ -4,12 +4,13 @@ import jakarta.transaction.Transactional;
 import lombok.*;
 import org.springframework.stereotype.Service;
 import ru.job4j.socialmedia.model.Post;
-import ru.job4j.socialmedia.model.PostDto;
+import ru.job4j.socialmedia.model.dto.PostDto;
 import ru.job4j.socialmedia.model.User;
 import ru.job4j.socialmedia.repository.PostRepository;
 import ru.job4j.socialmedia.repository.UserRepository;
 import ru.job4j.socialmedia.service.PostService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,5 +49,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public Optional<Post> findById(int id) {
         return postRepository.findById(id);
+    }
+
+    @Override
+    public List<PostDto> findAllByUserIds(List<Integer> userIds) {
+        return postRepository.findAllByUser_idIn(userIds).stream().map(Post::toDto).toList();
     }
 }

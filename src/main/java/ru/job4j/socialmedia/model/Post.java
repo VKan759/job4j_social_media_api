@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
+import ru.job4j.socialmedia.model.dto.PostDto;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -38,5 +39,14 @@ public class Post {
                 .setDescription(postDto.getDescription())
                 .setCreatedAt(postDto.getCreatedAt())
                 .setAttachmentFile(postDto.getAttachmentFile());
+    }
+
+    public static PostDto toDto(Post post) {
+        return new PostDto()
+                .setId(post.getId())
+                .setHeader(post.getHeader())
+                .setDescription(post.getDescription())
+                .setCreatedAt(post.getCreatedAt())
+                .setAttachmentFile(post.getAttachmentFile());
     }
 }
