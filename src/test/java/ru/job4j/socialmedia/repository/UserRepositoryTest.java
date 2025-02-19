@@ -36,9 +36,15 @@ class UserRepositoryTest {
 
     @Test
     void whenSaveUsersThenReturnAllUsers() {
-        User user = new User().setUsername("test username 1");
-        User user2 = new User().setUsername("test username 2");
-        User user3 = new User().setUsername("test username 3");
+        User user = new User().setUsername("test username 1")
+                .setEmail("test1@test.com")
+                .setPassword("test password");
+        User user2 = new User().setUsername("test username 2")
+                .setEmail("test2@test.com")
+                .setPassword("test password");
+        User user3 = new User().setUsername("test username 3")
+                .setEmail("test3@test.com")
+                .setPassword("test password");
         userRepository.saveAll(List.of(user, user2, user3));
         List<User> allUsers = (List) userRepository.findAll();
         assertThat(allUsers.size()).isEqualTo(3);

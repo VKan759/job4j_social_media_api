@@ -31,7 +31,7 @@ class PostRepositoryTest {
     @Test
     void whenAddPostThenFindPostId() {
         Post post = new Post().setHeader("First header").setDescription("Description").setCreatedAt(LocalDateTime.now());
-        post.setUser(new User().setUsername("username").setPassword("password"));
+        post.setUser(new User().setUsername("username123").setPassword("password").setEmail("test123@test.com"));
         postRepository.save(post);
         Optional<Post> byId = postRepository.findById(post.getId());
         assertThat(byId).isPresent();
@@ -41,7 +41,7 @@ class PostRepositoryTest {
     @Transactional
     @Test
     void whenFindAllThenReturnAllPosts() {
-        User saved = userRepository.save(new User().setUsername("username").setPassword("password"));
+        User saved = userRepository.save(new User().setUsername("username1234").setPassword("password").setEmail("test1234@test.com"));
         Post first = new Post().setHeader("First header").setDescription("Description");
         first.setUser(saved);
         Post second = new Post().setHeader("second header").setDescription("Second description");

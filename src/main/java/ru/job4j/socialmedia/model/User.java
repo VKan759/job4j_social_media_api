@@ -34,7 +34,7 @@ public class User {
     private String email;
 
     @NotBlank
-    @Size(min = 8)
+    @Size(min = 3)
     private String password;
 
     @JsonProperty(value = "created_at")
