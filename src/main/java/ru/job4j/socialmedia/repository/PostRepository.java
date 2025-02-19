@@ -51,5 +51,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 
     Optional<Post> findById(int id);
 
-    List<Post> findAllByUser_idIn(List<Integer> userId);
+    @Query(value = "SELECT p.* FROM posts p WHERE p.user_id IN :userIds", nativeQuery = true)
+    List<Post> findAllByUserIdIn(@Param("userIds") List<Integer> userIds);
 }

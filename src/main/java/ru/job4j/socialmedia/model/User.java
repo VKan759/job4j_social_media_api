@@ -3,8 +3,11 @@ package ru.job4j.socialmedia.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import ru.job4j.socialmedia.model.dto.Operations;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,13 +23,18 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotBlank(groups = Operations.OnUpdate.class)
     private int id;
 
+    @NotBlank
     private String username;
 
     @Column(unique = true)
+    @NotBlank
     private String email;
 
+    @NotBlank
+    @Size(min = 8)
     private String password;
 
     @JsonProperty(value = "created_at")

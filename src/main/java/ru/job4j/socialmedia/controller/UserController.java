@@ -1,10 +1,13 @@
 package ru.job4j.socialmedia.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.socialmedia.model.User;
+import ru.job4j.socialmedia.model.dto.Operations;
 import ru.job4j.socialmedia.service.UserService;
 
 import java.util.Optional;
@@ -26,11 +29,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody @Valid User user) {
         User saved = userService.create(user);
         return ResponseEntity.ok(saved);
     }
 
+    @Validated(Operations.OnUpdate.class)
     @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         User updated = userService.update(user);

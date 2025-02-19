@@ -53,6 +53,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> findAllByUserIds(List<Integer> userIds) {
-        return postRepository.findAllByUser_idIn(userIds).stream().map(Post::toDto).toList();
+        return postRepository.findAllByUserIdIn(userIds).stream().map(Post::toDto).toList();
     }
 }

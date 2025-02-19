@@ -1,6 +1,7 @@
 package ru.job4j.socialmedia.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,9 +16,11 @@ public class Subscription {
 
     @ManyToOne
     @JoinColumn(name = "subscriber_id")
+    @NotNull
     private User subscriber;
 
     @ManyToOne
     @JoinColumn(name = "subscriber_id_to")
+    @NotNull
     private User subscriberTo;
 }
