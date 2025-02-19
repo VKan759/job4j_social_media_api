@@ -1,5 +1,12 @@
 package ru.job4j.socialmedia.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +23,7 @@ import ru.job4j.socialmedia.service.UserService;
 import java.util.List;
 import java.util.Optional;
 
+@Tag(name = "Post controller", description = "Controller for post managing")
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -24,11 +32,24 @@ public class PostController {
     private final PostService postService;
     private final UserService userService;
 
+    @Operation(summary = "Save new post", tags = {"post",
+            "save"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = {@Content(schema = @Schema(implementation = PostDto.class), mediaType = "application")}),
+    })
     @PostMapping
     public ResponseEntity<Post> save(@RequestBody @Valid PostDto post) {
         return ResponseEntity.ok(postService.save(post).orElse(null));
     }
 
+    @Operation(summary = "Updating post", tags = {"post, update"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = {@Content(schema = @Schema(implementation = Post.class),
+                            mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", content = {@Content(schema = @Schema())})
+    })
     @Validated(Operations.OnUpdate.class)
     @PutMapping
     public ResponseEntity<Post> update(@RequestBody @Valid PostDto post) {
@@ -43,6 +64,13 @@ public class PostController {
         return response;
     }
 
+    @Operation(summary = "Getting post by Id", tags = {"post, get"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = {@Content(schema = @Schema(implementation = Post.class),
+                            mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", content = {@Content(schema = @Schema())})
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Post> get(@PathVariable Integer id) {
         ResponseEntity<Post> response = ResponseEntity.notFound().build();
@@ -53,13 +81,21 @@ public class PostController {
         return response;
     }
 
+    @Operation(summary = "Deleting post by post id", tags = {"post", "delete"})
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         postService.delete(id);
     }
 
+    @Operation(summary = "Getting posts by user Ids", tags = {"post", "get"})
     @GetMapping("/posts")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = {@Content(array = @ArraySchema(schema = @Schema(implementation = PostDto.class)),
+                            mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", content = {@Content(schema = @Schema())})
+    })
     public List<PostDto> getPostsByUserIds(@RequestParam List<Integer> userIds) {
         return postService.findAllByUserIds(userIds);
     }
