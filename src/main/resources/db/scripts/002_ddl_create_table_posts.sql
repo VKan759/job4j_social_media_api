@@ -5,5 +5,5 @@ CREATE TABLE if not exists posts
     description     text,
     attachment_file text,
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    user_id         INT REFERENCES users (id)
+    j_3user_id         INT REFERENCES users (id)
 )

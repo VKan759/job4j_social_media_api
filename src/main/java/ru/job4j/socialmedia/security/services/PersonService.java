@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.job4j.socialmedia.model.User;
+import ru.job4j.socialmedia.repository.UserRepository;
 import ru.job4j.socialmedia.security.dtos.request.SignupRequestDTO;
 import ru.job4j.socialmedia.security.dtos.response.RegisterDTO;
 import ru.job4j.socialmedia.security.models.ERole;
-import ru.job4j.socialmedia.security.models.Person;
 import ru.job4j.socialmedia.security.models.Role;
-import ru.job4j.socialmedia.security.repository.PersonRepository;
 import ru.job4j.socialmedia.security.repository.RoleRepository;
 
 import java.util.HashSet;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 @AllArgsConstructor
 public class PersonService {
     private PasswordEncoder encoder;
-    private final PersonRepository personRepository;
+    private final UserRepository personRepository;
     private final RoleRepository roleRepository;
 
     public RegisterDTO signUp(SignupRequestDTO signUpRequest) {
@@ -29,8 +29,11 @@ public class PersonService {
             return new RegisterDTO(HttpStatus.BAD_REQUEST, "Error: Username or Email is already taken!");
         }
 
-        Person person = new Person(signUpRequest.getUsername(), signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+        User user = new User()
+                .setUsername(signUpRequest.getUsername())
+                .setEmail(signUpRequest.getEmail())
+
+                .setPassword(encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
@@ -47,8 +50,8 @@ public class PersonService {
                 }
             });
         }
-        person.setRoles(roles);
-        personRepository.save(person);
+        user.setRoles(roles);
+        personRepository.save(user);
         return new RegisterDTO(HttpStatus.OK, "Person registered successfully!");
     }
 }

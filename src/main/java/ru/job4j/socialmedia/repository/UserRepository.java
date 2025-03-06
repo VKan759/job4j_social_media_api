@@ -1,5 +1,8 @@
 package ru.job4j.socialmedia.repository;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,4 +31,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findById(int id);
 
     User save(User user);
+
+    Boolean existsByUsername(@NotBlank @Size(min = 3, max = 20) String username);
+
+    Boolean existsByEmail(@NotBlank @Size(max = 50) @Email String email);
+
+    Optional<User> findByUsername(String username);
 }
