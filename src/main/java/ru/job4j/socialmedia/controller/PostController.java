@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.socialmedia.model.Post;
@@ -22,12 +23,12 @@ import ru.job4j.socialmedia.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
-
 @Tag(name = "Post controller", description = "Controller for post managing")
 @Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/post")
+@PreAuthorize(value = "hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 public class PostController {
     private final PostService postService;
     private final UserService userService;
